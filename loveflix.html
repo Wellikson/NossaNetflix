@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Netflix — nossa história contada como uma série.">
+<meta property="og:title" content="Netflix — Nossa História">
+<meta property="og:description" content="Uma história de amor em episódios.">
+<meta property="og:image" content="assets/hero.jpg">
+<title>Netflix — Nossa História</title>
+<style>
+:root{--bg:#141414;--red:#E50914;--white:#fff;--muted:#aaa;--glow:rgba(229,9,20,.4);--card:#1f1f1f}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
+button,a{font:inherit}
+a{text-decoration:none;color:inherit}
+#intro{position:fixed;inset:0;background:#000;z-index:9999;display:grid;place-items:center;transition:opacity .9s ease,visibility .9s ease}
+#intro.hide{opacity:0;visibility:hidden;pointer-events:none}
+.netflix-intro{font-size:clamp(4rem,18vw,12rem);font-weight:900;color:var(--red);letter-spacing:-.08em;transform:scale(0);animation:zoom 2.6s cubic-bezier(.7,0,.2,1) forwards}
+@keyframes zoom{0%{transform:scale(0)}55%{transform:scale(1)}100%{transform:scale(3.2)}}
+.intro-hint{position:absolute;bottom:10%;color:#777;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase}
+header{position:fixed;top:0;left:0;right:0;height:72px;padding:0 4%;display:flex;align-items:center;gap:28px;z-index:100;transition:.3s}
+header.scrolled{background:linear-gradient(#080808f2,#080808d9);box-shadow:0 2px 20px #000}
+.logo{color:var(--red);font-weight:900;font-size:1.65rem;letter-spacing:-.08em}
+nav{display:flex;gap:22px;color:#ddd;font-size:.9rem}
+nav a:hover{color:#fff}
+.avatar{margin-left:auto;width:38px;height:38px;border-radius:5px;object-fit:cover;border:1px solid #555}
+.hero{min-height:92vh;padding:150px 6% 80px;display:flex;align-items:center;position:relative;background-image:linear-gradient(90deg,#141414 0%,#141414d9 25%,#14141455 60%,#141414 100%),linear-gradient(0deg,#141414 0%,transparent 35%),url("assets/hero.jpg");background-size:cover;background-position:center}
+.hero-content{max-width:680px}
+.badge{color:#ddd;font-size:.78rem;font-weight:bold;letter-spacing:.2em;margin-bottom:18px}
+h1{font-size:clamp(3rem,7vw,6rem);line-height:.9;letter-spacing:-.055em;margin-bottom:20px}
+.tags{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:20px}
+.tag{border:1px solid #777;padding:6px 10px;border-radius:4px;color:#ddd;font-size:.78rem}
+.synopsis{font-size:1.08rem;line-height:1.65;color:#ddd;max-width:650px}
+.actions{display:flex;gap:12px;margin-top:28px}
+.btn{border:0;border-radius:4px;padding:13px 21px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:9px}
+.btn-primary{background:#fff;color:#111}.btn-primary:hover{background:#ddd}
+.btn-secondary{background:#ffffff22;color:#fff}.btn-secondary:hover{background:#ffffff35}
+section{padding:55px 6%}
+.section-title{font-size:1.6rem;margin-bottom:22px}
+.carousel{display:flex;gap:18px;overflow-x:auto;padding:10px 2px 22px;scrollbar-width:thin;scroll-snap-type:x mandatory}
+.carousel::-webkit-scrollbar{height:6px}.carousel::-webkit-scrollbar-thumb{background:#555;border-radius:20px}
+.episode-card{flex:0 0 260px;background:var(--card);border-radius:5px;overflow:hidden;position:relative;scroll-snap-align:start;transition:.25s;box-shadow:0 8px 20px #0008}
+.episode-card:hover{transform:scale(1.08);box-shadow:0 0 25px var(--glow);z-index:2}
+.episode-card img{display:block;width:100%;height:173px;object-fit:cover}
+.ep-info{padding:14px}.ep-number{color:#999;font-size:.75rem}.ep-title{font-size:1.05rem;font-weight:bold;margin:5px 0}.ep-desc{color:#aaa;font-size:.82rem;line-height:1.45}
+#carta{display:none;background:radial-gradient(circle at top,#3b1114cc 0,#171717d9 45%,#141414e6 100%),url("assets/carta.jpg");background-size:cover;background-position:center}
+#carta.show{display:block}
+.letter-wrap{max-width:850px;margin:auto}
+.letter-player{display:flex;align-items:center;gap:16px;background:linear-gradient(90deg,rgba(229,9,20,.18),rgba(255,255,255,.06));border:1px solid rgba(229,9,20,.35);padding:20px 22px;border-radius:14px;margin-bottom:30px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.letter-player span{font-size:1.6rem;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.25);opacity:1}}
+audio{width:100%;accent-color:#E50914;filter:drop-shadow(0 4px 10px rgba(229,9,20,.35))}
+.letter-text{font-family:Georgia,serif;font-size:1.2rem;line-height:1.9;color:#f2f2f2;background:rgba(10,10,10,.72);padding:42px 46px;border-radius:12px;border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 50px rgba(0,0,0,.6);backdrop-filter:blur(6px);text-align:justify}
+.letter-text strong{color:#ff5b64}
+.letter-text span{opacity:0;animation:reveal .02s forwards}
+@keyframes reveal{to{opacity:1}}
+.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.detail{background:#1d1d1d;border:1px solid #2b2b2b;padding:20px;border-radius:6px}
+.detail small{display:block;color:#777;text-transform:uppercase;font-size:.68rem;letter-spacing:.1em;margin-bottom:8px}.detail strong{font-size:1rem}
+footer{padding:40px 6%;color:#666;text-align:center;font-size:.78rem;border-top:1px solid #222}
+@media(max-width:760px){
+ header{height:62px;padding:0 5%}.logo{font-size:1.35rem}nav{display:none}
+ .avatar{width:34px;height:34px}
+ .hero{min-height:92vh;padding:100px 6% 55px;align-items:flex-end;background-position:center}
+ .synopsis{font-size:.98rem}.actions{flex-direction:column}.btn{width:100%;justify-content:center}
+ section{padding:42px 5%}.episode-card{flex-basis:68vw}
+ .detail-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:380px){.episode-card{flex-basis:78vw}.detail-grid{grid-template-columns:1fr}h1{font-size:3rem}}
+</style>
+</head>
+<body>
+<div id="intro">
+  <div class="netflix-intro">N</div>
+  <div class="intro-hint">Clique para iniciar</div>
+</div>
+
+<header id="navbar">
+  <a href="#inicio" class="logo">Netflix</a>
+  <nav>
+    <a href="#inicio">Início</a>
+    <a href="#episodios">Episódios</a>
+    <a href="#carta">Minha Princesa</a>
+    <a href="#detalhes">Detalhes</a>
+  </nav>
+  <img class="avatar" src="assets/profile.jpg" alt="Foto do casal">
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <div class="badge">SÉRIE ORIGINAL</div>
+    <h1>Você &amp; Eu</h1>
+    <div class="tags">
+      <span class="tag">♥ 100% Match</span><span class="tag">Livre</span>
+      <span class="tag">Temporada 1</span><span class="tag">Romance</span><span class="tag">Vida real</span>
+    </div>
+    <p class="synopsis">Uma história que não começou com um roteiro pronto. Foi sendo escrita nos encontros, nos olhares, nos presentes, nas cartas, nos detalhes e naquela saudade que aparece quando a gente fica longe demais. E, se depender de mim, ainda temos muitos capítulos para viver juntos.</p>
+    <div class="actions">
+      <button class="btn btn-primary" id="btnPlay">▶ Assistir</button>
+      <a class="btn btn-secondary" href="#detalhes">ⓘ Mais informações</a>
+    </div>
+  </div>
+</section>
+
+<section id="episodios">
+  <h2 class="section-title">Episódios</h2>
+  <div class="carousel">
+    <article class="episode-card"><img src="assets/ep1.jpg" alt="Episódio 1"><div class="ep-info"><span class="ep-number">EPISÓDIO 01</span><div class="ep-title">Quando tudo começou</div><p class="ep-desc">Entre encontros e sentimentos que foram crescendo, começou uma história que ganhou um lugar especial dentro de mim.</p></div></article>
+    <article class="episode-card"><img src="assets/ep2.jpg" alt="Episódio 2"><div class="ep-info"><span class="ep-number">EPISÓDIO 02</span><div class="ep-title">Os detalhes que ficam</div><p class="ep-desc">As cartas, os presentes, as lembranças e aquelas pequenas coisas que você talvez nem imagine o quanto significam para mim.</p></div></article>
+    <article class="episode-card"><img src="assets/ep3.jpg" alt="Episódio 3"><div class="ep-info"><span class="ep-number">EPISÓDIO 03</span><div class="ep-title">A saudade</div><p class="ep-desc">Porque quando passam dias sem te ver, fica ainda mais claro o quanto um simples encontro com você pode mudar tudo.</p></div></article>
+    <article class="episode-card"><img src="assets/ep4.jpg" alt="Episódio 4"><div class="ep-info"><span class="ep-number">EPISÓDIO 04</span><div class="ep-title">Ainda temos capítulos</div><p class="ep-desc">Porque eu não quero que a nossa história seja apenas uma lembrança bonita. Quero continuar vivendo, escrevendo e lembrando de nós.</p></div></article>
+  </div>
+</section>
+
+<section id="carta">
+  <div class="letter-wrap">
+    <h2 class="section-title">Minha Princesa</h2>
+    <div class="letter-player">
+      <span>♫</span>
+      <audio id="themeAudio" controls loop src="assets/theme.mp3"></audio>
+    </div>
+    <div class="letter-text" id="letterText"><strong>Meu amor,</strong><br><br>se a nossa história fosse uma série, eu não escolheria apenas o episódio mais bonito. Eu escolheria todos.<br><br>Porque cada momento tem alguma coisa nossa: um encontro, um olhar, uma conversa, um presente, uma carta, um sorriso ou simplesmente a felicidade de estar perto de você.<br><br>Você sabe que eu dou valor aos detalhes. Talvez por isso algumas coisas que parecem pequenas para outras pessoas tenham um significado enorme para mim. As datas que você lembra, os presentes, as cartas e tudo aquilo que mostra que você pensou em nós ficam guardados de um jeito muito especial.<br><br>E também existe a saudade.<br><br>Porque quando a gente fica longe, os dias parecem passar de um jeito diferente. E quando penso no nosso último encontro, lembro que foi justamente no <strong>seu aniversário, dia 03/08</strong>.<br><br>Aquele dia ficou ainda mais especial por ser seu dia. Poder estar perto de você, compartilhar aquele momento e guardar mais uma lembrança nossa fez dele um capítulo que eu não quero esquecer.<br><br>Desde então, a saudade só mostra uma coisa: <strong>eu gosto de estar perto de você mais do que consigo explicar.</strong><br><br>E talvez seja justamente isso que torna cada encontro tão especial. A gente nunca sabe exatamente o quanto um momento vai significar até sentir falta dele depois.<br><br>Se eu pudesse escolher uma coisa para os próximos episódios, seria continuar tendo você neles.<br><br>Continuar criando lembranças, comemorando datas, trocando cartas, dando presentes, rindo juntos e vivendo aqueles momentos que só fazem sentido porque somos nós dois.<br><br><strong>Você é o amor da minha vida.</strong><br><br>E se um dia alguém me perguntasse qual foi a minha história favorita, eu não precisaria pensar muito.<br><br><strong>Eu contaria a nossa.</strong><br><br>E sobre o seu aniversário... eu ainda continuo achando que é o meu <strong>segundo melhor dia</strong>.<br><br>O primeiro é aquele dia que virou a nossa foto, porque ali existe uma lembrança que eu sempre vou querer guardar.<br><br>Que essa série nunca precise de um episódio final.<br><br>Que a gente continue escrevendo.<br><br><strong>Juntos.</strong><br><br>Com todo o meu amor,<br><strong>seu amor. ❤️</strong></div>
+  </div>
+</section>
+
+<section id="detalhes">
+  <h2 class="section-title">Ficha técnica</h2>
+  <div class="detail-grid">
+    <div class="detail"><small>Protagonistas</small><strong>Nós dois</strong></div>
+    <div class="detail"><small>Gênero</small><strong>Romance • Vida real</strong></div>
+    <div class="detail"><small>História</small><strong>Feita de encontros e detalhes</strong></div>
+    <div class="detail"><small>Próximo capítulo</small><strong>Ainda sendo escrito ❤️</strong></div>
+  </div>
+</section>
+</main>
+
+<footer>Netflix © 2026 — Para a minha Princesa. Uma história que ainda está sendo escrita. ❤️</footer>
+
+<script>
+const intro=document.getElementById('intro');
+const navbar=document.getElementById('navbar');
+const carta=document.getElementById('carta');
+const audio=document.getElementById('themeAudio');
+let started=false;
+
+function playDum(){
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const osc=ctx.createOscillator(), gain=ctx.createGain();
+    osc.type='sine'; osc.frequency.setValueAtTime(110,ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(55,ctx.currentTime+.8);
+    gain.gain.setValueAtTime(.001,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(.25,ctx.currentTime+.03);
+    gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.9);
+    osc.connect(gain).connect(ctx.destination);osc.start();osc.stop(ctx.currentTime+.95);
+  }catch(e){}
+}
+document.addEventListener('pointerdown',()=>{
+ if(!started){started=true;playDum();const hint=document.querySelector('.intro-hint');if(hint)hint.style.display='none';}
+},{once:true});
+
+setTimeout(()=>intro.classList.add('hide'),2600);
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',scrollY>30));
+
+function renderLetter(){
+ const el=document.getElementById('letterText');
+ if(el.dataset.rendered)return;
+ const html=el.innerHTML;
+ el.innerHTML='';
+ const tmp=document.createElement('div');tmp.innerHTML=html;
+ let i=0;
+ function walk(node){
+  node.childNodes.forEach(n=>{
+   if(n.nodeType===3){
+    [...n.textContent].forEach(ch=>{
+     if(ch==='\n'||ch==='\r')return;
+     const sp=document.createElement('span');
+     sp.textContent=ch;sp.style.animationDelay=(i*.012)+'s';el.appendChild(sp);i++;
+    });
+   }else if(n.nodeType===1){
+    if(n.tagName==='BR')el.appendChild(document.createElement('br'));
+    else if(n.tagName==='STRONG'){
+     const st=document.createElement('strong');
+     [...n.textContent].forEach(ch=>{
+      if(ch==='\n'||ch==='\r')return;
+      const sp=document.createElement('span');
+      sp.textContent=ch;sp.style.animationDelay=(i*.012)+'s';st.appendChild(sp);i++;
+     });
+     el.appendChild(st);
+    }
+    else walk(n);
+   }
+  });
+ }
+ walk(tmp);
+ el.dataset.rendered='1';
+}
+
+document.getElementById('btnPlay').addEventListener('click',()=>{
+ carta.classList.add('show');
+ renderLetter();
+ carta.scrollIntoView({behavior:'smooth'});
+ audio.play().catch(()=>{});
+});
+</script>
+</body>
+</html>
