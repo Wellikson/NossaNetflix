@@ -12,6 +12,7 @@
 :root{--bg:#141414;--red:#E50914;--white:#fff;--muted:#aaa;--glow:rgba(229,9,20,.4);--card:#1f1f1f}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+.ep-desc br+br{display:block;content:"";margin-top:6px}
 body{background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
 button,a{font:inherit}
 a{text-decoration:none;color:inherit}
@@ -30,6 +31,7 @@ nav a:hover{color:#fff}
 .hero-content{max-width:680px}
 .badge{color:#ddd;font-size:.78rem;font-weight:bold;letter-spacing:.2em;margin-bottom:18px}
 h1{font-size:clamp(3rem,7vw,6rem);line-height:.9;letter-spacing:-.055em;margin-bottom:20px}
+.synopsis strong{color:#ff5b64}
 .tags{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:20px}
 .tag{border:1px solid #777;padding:6px 10px;border-radius:4px;color:#ddd;font-size:.78rem}
 .synopsis{font-size:1.08rem;line-height:1.65;color:#ddd;max-width:650px}
@@ -44,6 +46,7 @@ section{padding:55px 6%}
 .episode-card{flex:0 0 260px;background:var(--card);border-radius:5px;overflow:hidden;position:relative;scroll-snap-align:start;transition:.25s;box-shadow:0 8px 20px #0008}
 .episode-card:hover{transform:scale(1.08);box-shadow:0 0 25px var(--glow);z-index:2}
 .episode-card img{display:block;width:100%;height:173px;object-fit:cover}
+.ep-desc strong{color:#ff5b64}
 .ep-info{padding:14px}.ep-number{color:#999;font-size:.75rem}.ep-title{font-size:1.05rem;font-weight:bold;margin:5px 0}.ep-desc{color:#aaa;font-size:.82rem;line-height:1.45}
 #carta{display:none;background:radial-gradient(circle at top,#3b1114cc 0,#171717d9 45%,#141414e6 100%),url("assets/carta.jpg");background-size:cover;background-position:center}
 #carta.show{display:block}
@@ -97,9 +100,12 @@ footer{padding:40px 6%;color:#666;text-align:center;font-size:.78rem;border-top:
       <span class="tag">♥ 100% Match</span><span class="tag">Livre</span>
       <span class="tag">Temporada 1</span><span class="tag">Romance</span><span class="tag">Vida real</span>
     </div>
-    <p class="synopsis">Uma história que não começou com um roteiro pronto. Foi sendo escrita nos encontros, nos olhares, nos presentes, nas cartas, nos detalhes e naquela saudade que aparece quando a gente fica longe demais. E, se depender de mim, ainda temos muitos capítulos para viver juntos.</p>
+    <p class="synopsis">Uma história que não começou com um roteiro pronto. Foi sendo escrita entre mensagens, ligações, cartas, presentes, detalhes e aquela saudade que aparece quando a gente fica longe demais.<br><br>
+Uma história que começou sem sabermos onde iria chegar.<br><br>
+Mas chegou até aqui.<br><br>
+<strong>E agora, Princesa, é hora de apertar o play e reviver a nossa história. ❤️</strong></p>
     <div class="actions">
-      <button class="btn btn-primary" id="btnPlay">▶ Assistir</button>
+      <button class="btn btn-primary" id="btnPlay">▶ Começar nossa história</button>
       <a class="btn btn-secondary" href="#detalhes">ⓘ Mais informações</a>
     </div>
   </div>
@@ -108,10 +114,10 @@ footer{padding:40px 6%;color:#666;text-align:center;font-size:.78rem;border-top:
 <section id="episodios">
   <h2 class="section-title">Episódios</h2>
   <div class="carousel">
-    <article class="episode-card"><img src="assets/ep1.jpg" alt="Episódio 1"><div class="ep-info"><span class="ep-number">EPISÓDIO 01</span><div class="ep-title">Quando tudo começou</div><p class="ep-desc">Entre encontros e sentimentos que foram crescendo, começou uma história que ganhou um lugar especial dentro de mim.</p></div></article>
-    <article class="episode-card"><img src="assets/ep2.jpg" alt="Episódio 2"><div class="ep-info"><span class="ep-number">EPISÓDIO 02</span><div class="ep-title">Os detalhes que ficam</div><p class="ep-desc">As cartas, os presentes, as lembranças e aquelas pequenas coisas que você talvez nem imagine o quanto significam para mim.</p></div></article>
-    <article class="episode-card"><img src="assets/ep3.jpg" alt="Episódio 3"><div class="ep-info"><span class="ep-number">EPISÓDIO 03</span><div class="ep-title">A saudade</div><p class="ep-desc">Porque quando passam dias sem te ver, fica ainda mais claro o quanto um simples encontro com você pode mudar tudo.</p></div></article>
-    <article class="episode-card"><img src="assets/ep4.jpg" alt="Episódio 4"><div class="ep-info"><span class="ep-number">EPISÓDIO 04</span><div class="ep-title">Ainda temos capítulos</div><p class="ep-desc">Porque eu não quero que a nossa história seja apenas uma lembrança bonita. Quero continuar vivendo, escrevendo e lembrando de nós.</p></div></article>
+    <article class="episode-card"><img src="assets/ep1.jpg" alt="Episódio 1"><div class="ep-info"><span class="ep-number">EPISÓDIO 01</span><div class="ep-title">Quando tudo começou</div><p class="ep-desc">Princesa, talvez você nem imagine o quanto aquelas primeiras conversas começaram a mudar meus dias.<br><br>Tudo começou de um jeito simples, entre mensagens e ligações. Mas, aos poucos, conversar com você deixou de ser apenas parte do dia e passou a ser uma das partes que eu mais esperava.<br><br>Fui conhecendo seu jeito, me aproximando de você e, quando percebi, já tinha criado por nós um sentimento que não queria mais deixar para trás.<br><br>Uma conversa virou carinho.<br>O carinho virou sentimento.<br>E o sentimento virou nós. ❤️</p></div></article>
+    <article class="episode-card"><img src="assets/ep2.jpg" alt="Episódio 2"><div class="ep-info"><span class="ep-number">EPISÓDIO 02</span><div class="ep-title">Os detalhes que ficaram</div><p class="ep-desc">Com o tempo, você foi deixando marcas bonitas na minha história.<br><br>As cartas, os presentes, as datas e até os pequenos gestos começaram a ganhar um significado enorme para mim.<br><br>Porque quando é você, até os detalhes mais simples se tornam lembranças que eu quero guardar.<br><br>E foi aí que percebi que não era apenas sobre os momentos que vivíamos, mas sobre <strong>tudo aquilo que começamos a significar um para o outro. ❤️</strong></p></div></article>
+    <article class="episode-card"><img src="assets/ep3.jpg" alt="Episódio 3"><div class="ep-info"><span class="ep-number">EPISÓDIO 03</span><div class="ep-title">A saudade</div><p class="ep-desc">Depois de viver momentos tão especiais com você, veio uma parte que eu nunca gostei: a distância.<br><br>E foi aí que percebi ainda mais o quanto sua presença faz falta.<br><br>O último capítulo que vivemos juntos foi no <strong>seu aniversário, dia 03/08</strong>. Um dia que já era especial por ser seu, mas que se tornou ainda mais importante por poder estar ao seu lado.<br><br>Depois dele, ficou a saudade.<br><br>Aquela vontade simples de te ver, ouvir sua voz e ter você perto novamente.<br><br><strong>Porque quando alguém se torna importante, a distância nunca parece pequena. ❤️</strong></p></div></article>
+    <article class="episode-card"><img src="assets/ep4.jpg" alt="Episódio 4"><div class="ep-info"><span class="ep-number">EPISÓDIO 04</span><div class="ep-title">Ainda temos capítulos</div><p class="ep-desc">Quando olho para tudo que já vivemos, percebo que a nossa história ainda está longe de terminar.<br><br>Ainda existem encontros para acontecer, fotos para tirar, cartas para escrever, presentes para trocar e muitos momentos que ainda nem imaginamos.<br><br>Eu não sei exatamente como serão os próximos capítulos.<br><br>Mas sei quem eu quero ao meu lado enquanto eles acontecem.<br><br><strong>Você.</strong><br><br>Porque algumas histórias a gente assiste até o fim.<br><br><strong>A nossa, eu quero continuar vivendo. ❤️</strong></p></div></article>
   </div>
 </section>
 
@@ -147,16 +153,23 @@ const audio=document.getElementById('themeAudio');
 let started=false;
 
 function playDum(){
-  try{
-    const ctx=new (window.AudioContext||window.webkitAudioContext)();
-    const osc=ctx.createOscillator(), gain=ctx.createGain();
-    osc.type='sine'; osc.frequency.setValueAtTime(110,ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(55,ctx.currentTime+.8);
-    gain.gain.setValueAtTime(.001,ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(.25,ctx.currentTime+.03);
-    gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.9);
-    osc.connect(gain).connect(ctx.destination);osc.start();osc.stop(ctx.currentTime+.95);
-  }catch(e){}
+ try{
+  const ctx=new (window.AudioContext||window.webkitAudioContext)();
+  function thud(t,f0,f1,vol,dur){
+   const osc=ctx.createOscillator(),gain=ctx.createGain();
+   osc.type='sine';
+   osc.frequency.setValueAtTime(f0,t);
+   osc.frequency.exponentialRampToValueAtTime(f1,t+dur*.7);
+   gain.gain.setValueAtTime(.001,t);
+   gain.gain.exponentialRampToValueAtTime(vol,t+.03);
+   gain.gain.exponentialRampToValueAtTime(.001,t+dur);
+   osc.connect(gain).connect(ctx.destination);
+   osc.start(t);osc.stop(t+dur+.05);
+  }
+  const now=ctx.currentTime;
+  thud(now,140,60,.35,.28);      // "ta"
+  thud(now+.32,90,40,.5,.9);     // "DUM"
+ }catch(e){}
 }
 document.addEventListener('pointerdown',()=>{
  if(!started){started=true;playDum();const hint=document.querySelector('.intro-hint');if(hint)hint.style.display='none';}
